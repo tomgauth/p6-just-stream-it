@@ -6,7 +6,97 @@
 const root = "http://localhost:8000/api/v1/titles/"
 
 var dict = {
-	sort_by : "-imdb_score"
+	sort_by: "-imdb_score",
+	year: 2020
+
+}
+
+
+pages = []
+movies = []
+
+const getMovies = (url, dict, pageNum) => {
+	dict.page = pageNum
+	return axios.get(url, {
+		params: dict
+	}).then(response => {
+		let APIpage = response.data.results
+		return APIpage
+		// return page
+	})
+}
+
+
+
+
+const getResponse = (root, dict) => {
+	return axios.get(root, {
+			params: dict
+		}).then(response => {
+			console.log(response.data.count)
+			let count = response.data.count
+			let numPages = Math.ceil(response.data.count / 5)
+			console.log(numPages)
+			return numPages
+		})
+		.catch(function(error) {
+			console.log(error)
+		})
+}
+
+
+// this should return a premise so then we can splitPages
+// or call splitPages after pages is done
+
+
+
+const addPages = (numPages) => {
+
+	for (var i = 0; i <= numPages; i++) {
+		getMovies(root, dict, i).then((page) => {
+			console.log('addPages: ',page)
+			pages = pages.concat(page)
+		})
+	}
+	return pages
+}
+
+const splitPages = (pages) => {
+	table = []
+	for (let i = 0; i < pages.length; i += 7)
+		table.push(pages.slice(i, i + 7));
+	return table
+}
+
+getResponse(root, dict).then(numPages => { addPages(numPages)})
+// then splitPages(pages)
+// now we have the table
+
+
+const myPromise = new Promise((resolve, reject) => {
+	addPages((numPages) => {
+		for (var i = 0; i <= numPages; i++) {
+			console.log(i)
+			console.log(root)
+			console.log(dict)
+			getMovies(root, dict, i).then((page) => {
+				console.log(page)
+				pages = pages.concat(page)
+			}).then((pages) => {
+				console.log(pages)
+				splitPages(pages)
+			})
+		}
+	})
+});
+
+
+const createTable = () => {
+
+	getResponse(root, dict).then((numPages) => {
+		console.log('Here is the numPages:', numPages)
+		addPages(numPages)
+	})
 }
 
 function getPage(root, dict, sectionName) {
@@ -15,7 +105,7 @@ function getPage(root, dict, sectionName) {
 	}).then(function(response) {
 		const page = response.data
 		createSection(page, sectionName)
-	}).catch(function(error){
+	}).catch(function(error) {
 		console.log(error)
 	})
 }
@@ -91,7 +181,7 @@ function getBestMovie(root, dict) {
 		bestMovie.src = `${movie.image_url}`
 		const sectionBestMovie = document.getElementsByClassName("topMovie")[0]
 		sectionBestMovie.appendChild(bestMovie)
-	}).catch(function(error){
+	}).catch(function(error) {
 		console.log(error)
 	})
 }
@@ -99,10 +189,9 @@ function getBestMovie(root, dict) {
 const app = document.getElementById("root")
 
 
-getPage(root, {sort_by : "-imdb_score"}, "best_movies")
+// getPage(root, {
+// 	sort_by: "-imdb_score"
+// }, "best_movies")
 // getBestMovie(root, {sort_by : "-imdb_score"})
 
 // getPage(root, {sort_by : "-imdb_score", actor : "Nicolas Cage"}, "worst_of_cage")
-
-
-
