@@ -12,145 +12,137 @@ var dict = {
 }
 
 
-pages = []
-movies = []
-
-const getMovies = (url, dict, pageNum) => {
-	dict.page = pageNum
-	return axios.get(url, {
-		params: dict
-	}).then(response => {
-		let APIpage = response.data.results
-		return APIpage
-		// return page
+const createSection = (row, number) => {
+	// create a section with id number +1
+	let section = document.createElement("section")
+	section.id = `section${number+1}`
+	// create the arriw left
+	let leftArrow = document.createElement("a")
+	leftArrow.href=`#section${number}`
+	leftArrow.classList.add("arrow__btn", "left-arrow")
+	leftArrow.textContent = "‹"
+	section.appendChild(leftArrow)
+	// for each item in row, create the item
+	row.forEach(item => {
+		let divItem = document.createElement("div")
+		divItem.classList.add("item")
+		let image = document.createElement("img")
+		image.src = `${item.image_url}`
+		divItem.appendChild(image)
+		// append each item to the section
+		section.appendChild(divItem)
 	})
+	// create and append the arrow right
+	let rightArrow = document.createElement("a")
+	rightArrow.href=`#section${number+2}`
+	rightArrow.classList.add("arrow__btn", "right-arrow")
+	rightArrow.textContent = "›"
+	section.appendChild(rightArrow)
+	// return the section
+	return section
 }
 
-
-
-
-const getResponse = (root, dict) => {
-	return axios.get(root, {
-			params: dict
-		}).then(response => {
-			console.log(response.data.count)
-			let count = response.data.count
-			let numPages = Math.ceil(response.data.count / 5)
-			console.log(numPages)
-			return numPages
-		})
-		.catch(function(error) {
-			console.log(error)
-		})
-}
-
-
-// this should return a premise so then we can splitPages
-// or call splitPages after pages is done
-
-
-
-const addPages = (numPages) => {
-
-	for (var i = 0; i <= numPages; i++) {
-		getMovies(root, dict, i).then((page) => {
-			console.log('addPages: ',page)
-			pages = pages.concat(page)
-		})
-	}
-	return pages
-}
-
-const splitPages = (pages) => {
+const splitMovies = (allPages) => {
+	let movies = []
+	allPages.forEach(page =>
+		movies = movies.concat(page.data.results)
+	)
 	table = []
-	for (let i = 0; i < pages.length; i += 7)
-		table.push(pages.slice(i, i + 7));
+	for (let i = 0; i < movies.length; i += 7)
+		table.push(movies.slice(i, i + 7));
 	return table
 }
 
-getResponse(root, dict).then(numPages => { addPages(numPages)})
-// then splitPages(pages)
-// now we have the table
-
-
-const myPromise = new Promise((resolve, reject) => {
-	addPages((numPages) => {
-		for (var i = 0; i <= numPages; i++) {
-			console.log(i)
-			console.log(root)
-			console.log(dict)
-			getMovies(root, dict, i).then((page) => {
-				console.log(page)
-				pages = pages.concat(page)
-			}).then((pages) => {
-				console.log(pages)
-				splitPages(pages)
-			})
-		}
-	})
-});
-
-
-const createTable = () => {
-
-	getResponse(root, dict).then((numPages) => {
-		console.log('Here is the numPages:', numPages)
-		addPages(numPages)
-	})
-}
-
-function getPage(root, dict, sectionName) {
-	axios.get(root, {
+async function loadCarousel(id, dict) {
+	console.log('calling');
+	response = await axios.get(root, {
 		params: dict
-	}).then(function(response) {
-		const page = response.data
-		createSection(page, sectionName)
-	}).catch(function(error) {
-		console.log(error)
+	})
+	console.log(response)
+	const numPages = Math.ceil(response.data.count / 5)
+	console.log(numPages);
+	// now get an array of all the requests
+	requests = []
+	for (var i = 1; i <= numPages; i++) {
+		dict.page = i
+		request = axios.get(root, {
+			params: dict
+		})
+		requests.push(request)
+	}
+	console.log(requests)
+	allPages = await axios.all(requests)
+	console.log(allPages)
+	table = splitMovies(allPages)
+	const carousel = document.getElementById(id)
+	table.forEach( (row, index)  => {
+		// slide should return an html object
+		slide = createSection(row, index)
+		carousel.appendChild(slide)
 	})
 }
 
-const createSection = (page, sectionName) => {
-	console.log(`section: ${sectionName}`)
-	var section = document.getElementById(sectionName)
-	console.log(section)
-	if (section == null) {
-		section = document.createElement("section")
-	} else {
-		section = document.getElementById(sectionName)
-		section.innerHTML = ""
-		console.log("else")
-	}
-	section.id = sectionName
-	section.classList.add("section")
-	const wrap = document.getElementsByClassName("wrapper")[0]
-	wrap.appendChild(section)
-	console.log(section)
 
-	const items = page.results
-	const arrowLeft = document.createElement("a")
-	arrowLeft.onclick = function() {
-		getPage(page.previous, {}, sectionName)
-	}
-	arrowLeft.textContent = "‹"
-	arrowLeft.href = `#section5`
-	arrowLeft.classList.add("arrow__btn", "left-arrow")
-	const arrowRight = document.createElement("a")
-	// arrowRight.href = `#` // try calling function getPage with the next page
-	arrowRight.onclick = function() {
-		getPage(page.next, {}, sectionName)
-	}
-	arrowRight.classList.add("arrow__btn", "right-arrow")
-	arrowRight.textContent = "›"
-	section.appendChild(arrowLeft)
-	section.appendChild(arrowRight)
 
-	console.log(items)
-	items.forEach(function(item) {
-		movie = createItem(item)
-		section.appendChild(movie)
-	})
-};
+loadCarousel("bestMovies", {
+	sort_by: "-imdb_score",
+	year: 2020
+})
+
+loadCarousel("worstOfCage", {
+	actor : "Nicolas Cage",
+	sort_by: "imdb_score"
+})
+
+loadCarousel("2010", {
+	sort_by: "-imdb_score",
+	year: 2010
+})
+
+
+
+
+// const createSection = (page, sectionName) => {
+// 	console.log(`section: ${sectionName}`)
+// 	var section = document.getElementById(sectionName)
+// 	console.log(section)
+// 	if (section == null) {
+// 		section = document.createElement("section")
+// 	} else {
+// 		section = document.getElementById(sectionName)
+// 		section.innerHTML = ""
+// 		console.log("else")
+// 	}
+// 	section.id = sectionName
+// 	section.classList.add("section")
+// 	const wrap = document.getElementsByClassName("wrapper")[0]
+// 	wrap.appendChild(section)
+// 	console.log(section)
+
+// 	const items = page.results
+// 	const arrowLeft = document.createElement("a")
+// 	arrowLeft.onclick = function() {
+// 		getPage(page.previous, {}, sectionName)
+// 	}
+// 	arrowLeft.textContent = "‹"
+// 	arrowLeft.href = `#section5`
+// 	arrowLeft.classList.add("arrow__btn", "left-arrow")
+// 	const arrowRight = document.createElement("a")
+// 	// arrowRight.href = `#` // try calling function getPage with the next page
+// 	arrowRight.onclick = function() {
+// 		getPage(page.next, {}, sectionName)
+// 	}
+// 	arrowRight.classList.add("arrow__btn", "right-arrow")
+// 	arrowRight.textContent = "›"
+// 	section.appendChild(arrowLeft)
+// 	section.appendChild(arrowRight)
+
+// 	console.log(items)
+// 	items.forEach(function(item) {
+// 		movie = createItem(item)
+// 		section.appendChild(movie)
+// 	})
+// };
 
 // pass the section as an argument instead of fetching it back each time
 const createItem = (movie) => {
