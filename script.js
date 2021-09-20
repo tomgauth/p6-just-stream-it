@@ -11,32 +11,48 @@ const next = document.querySelector('.right-arrow');
 
 // const track = document.querySelector('.track');
 
-let index = 0;
+// let index = 0;
+let bestMoviesIndex = 0;
 
 
-const slideNext = (id, index) => {
-	index++;
-	prev.classList.add('show');
-	tracks = document.getElementsByClassName('track')
-	track = tracks[id]
+const test = (evt) => {
+	window.alert(evt.currentTarget.index);
+	window.alert(evt.currentTarget.id);
+}
+
+const slideNext = (evt) => {
+	// get the carousel inner
+	// get the other arrow
+	let tracks = document.getElementsByClassName('track')
+	let track = tracks[evt.currentTarget.id]
 	console.log(track)
-	track.style.transform = `translateX(-${index * 200}px)`;
+	console.log(track.index)
 	console.log(track.offsetWidth)
-	console.log(index * 200)
-	if (track.offsetWidth - (index * 200) < 1200) {
-		next.classList.add('hide');
+	console.log(track.index * 200)
+	if (track.offsetWidth - (track.index * 200) < 1000) {
+	} else {
+		track.index++
+		track.style.transform = `translateX(-${track.index * 200}px)`;
 	}
 }
 
 
-const slidePrev = () => {
-	index--;
-	track = section
-	next.classList.remove('hide');
-	if (index === 0) {
-		prev.classList.remove('show');
+const slidePrev = (evt) => {
+	let tracks = document.getElementsByClassName('track')
+	let track = tracks[evt.currentTarget.id]
+	console.log(track)
+	//track = section
+	// evt.currentTarget.classList.remove('hide');
+	console.log(evt.currentTarget)
+	console.log(track.index)
+	if (track.index <= 0) {
+		console.log("triggered")
+		evt.currentTarget.classList.remove('show')
+	} else {
+		track.index--;
+		track.style.transform = `translateX(-${track.index * 200}px)`;
 	}
-	track.style.transform = `translateX(-${index * 200}px)`;
+
 }
 
 
@@ -128,10 +144,12 @@ const createSection = (row, id) => {
 	let carouselInner = carouselContainer.getElementsByClassName('carousel-inner')[0]
 	let track = carouselInner.getElementsByClassName('track')[0]
 	track.id = id
+	track.index = 0
 	// create the arrow left
 	let leftArrow = document.createElement("a")
 	leftArrow.classList.add("arrow__btn", "left-arrow")
 	leftArrow.textContent = "‹"
+	leftArrow.id = id
 	leftArrow.addEventListener("click", slidePrev)
 	carouselContainer.appendChild(leftArrow)
 	// for each item in row, create the item
@@ -155,12 +173,9 @@ const createSection = (row, id) => {
 	let rightArrow = document.createElement("a")
 	rightArrow.classList.add("arrow__btn", "right-arrow")
 	rightArrow.textContent = "›"
-	console.log(index)
+	rightArrow.id = id
 	console.log(typeof(id))
-	console.log(typeof(index))
-	console.log("slideNext("+ id.toString()+","+index+")")
-	let param = "slideNext("+ id.toString()+","+index+")"
-	rightArrow.addEventListener("click", param)
+	rightArrow.addEventListener("click", slideNext)
 	carouselContainer.appendChild(rightArrow)
 }
 
@@ -211,10 +226,10 @@ loadCarousel("worstOfCage", {
 	sort_by: "imdb_score"
 })
 
-// loadCarousel("2010", {
-// 	sort_by: "-imdb_score",
-// 	year: 2010
-// })
+loadCarousel("bestOf2010", {
+	sort_by: "-imdb_score",
+	year: 2010
+})
 
 
 

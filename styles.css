@@ -61,7 +61,7 @@ img {
 }
 
 .left-arrow {
-  display: none;
+  display: block;
   top: 0;
   bottom: 0;
   left: 0;
@@ -80,42 +80,6 @@ img {
 }
 
 .right-arrow.hide {
-  display: none;
-}
-
-.nav button {
-  position: absolute;
-  color: #fff;
-  text-decoration: none;
-  font-size: 6em;
-  background: black;
-  width: 80px;
-  padding: 50px;
-  text-align: center;
-  z-index: 1;
-  cursor: pointer;
-}
-
-.nav .prev {
-  display: none;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  background: linear-gradient(-90deg, rgba(0, 0, 0, 0) 0%, black 100%);
-}
-
-.nav .prev.show {
-  display: block;
-}
-
-.nav .next {
-  top: 0;
-  bottom: 0;
-  right: 0;
-  background: linear-gradient(90deg, rgba(0, 0, 0, 0) 0%, black 100%);
-}
-
-.nav .next.hide {
   display: none;
 }
 
