@@ -8,7 +8,7 @@
   <script defer src="https://use.fontawesome.com/releases/v5.1.0/js/all.js" integrity="sha384-3LK/3kTpDE/Pkp8gTNp2gR/2gOiwQ6QaO7Td0zV76UFJVhqLl4Vl3KL1We6q6wR9" crossorigin="anonymous"></script>
   <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 
-  <script src="script.js"></script>
+
 </head>
 <body>
 
@@ -34,20 +34,38 @@
       <h1>Test Title in the hero</h1>
       <p>Description of the movie</p>
       <button>Play</button>
+      <!-- MODAL TEST -->
     </div>
   </div>
 
 
-  <h1>Best Movies</h1>
-  <div class="carousel" id="bestMovies">
+  <div class="carousel-container" id="bestMovies">
+    <h1>Best Movies</h1>
+    <div class="carousel-inner">
+      <div class="track" id="bestMovies">
+        <div class="item" onclick="openModal(11207902)"><img src="https://m.media-amazon.com/images/M/MV5BNjFjNDQyYzYtZjI2NC00NmMwLTg1NjgtNTMxMWJjYTYxZjQ3XkEyXkFqcGdeQXVyMTA5MzgzNDUz._V1_UY268_CR1,0,182,268_AL_.jpg"></div><div class="item" onclick="openModal(11880904)"><img src="https://m.media-amazon.com/images/M/MV5BMTZjZjM3NTQtOTFmOS00ZGI3LWI2MGQtMGE3MWNlZTE2OWM3XkEyXkFqcGdeQXVyMTExNzA5NzE4._V1_UY268_CR9,0,182,268_AL_.jpg"></div><div class="item" onclick="openModal(11976170)"><img src="https://m.media-amazon.com/images/M/MV5BYzM5Mzg1MDAtN2U1YS00M2UyLTliMTItOGI5YjA5ZjdjNGFkXkEyXkFqcGdeQXVyMTE0NzkzODUy._V1_UY268_CR9,0,182,268_AL_.jpg"></div><div class="item" onclick="openModal(11164090)"><img src="https://m.media-amazon.com/images/M/MV5BNDg2ZTRkY2MtNGRhMC00MjAwLTg0MGUtN2RmZTA2MGQ3MWYwXkEyXkFqcGdeQXVyMjgxNDIxNjE@._V1_UX182_CR0,0,182,268_AL_.jpg"></div><div class="item" onclick="openModal(11280912)"><img src="https://m.media-amazon.com/images/M/MV5BMmY2YzlkMzUtYzMxYS00MmViLTkyZjctMzZlNDEwNWMwNzY2XkEyXkFqcGdeQXVyMjkxNzQ1NDI@._V1_UY268_CR0,0,182,268_AL_.jpg"></div><div class="item" onclick="openModal(11880890)"><img src="https://m.media-amazon.com/images/M/MV5BZGQ3ZDVkNDEtMGM3Yy00ZWJmLWE0YWMtZTM3MTcxZmNhOWFlXkEyXkFqcGdeQXVyMjkxNzQ1NDI@._V1_UY268_CR0,0,182,268_AL_.jpg"></div><div class="item" onclick="openModal(11617492)"><img src="https://m.media-amazon.com/images/M/MV5BNjNiYTIwYmUtZDlmYy00MWMxLWI0OTAtMmRkODdlMTM1ZTVmXkEyXkFqcGdeQXVyNDcwNDE0Nzk@._V1_UX182_CR0,0,182,268_AL_.jpg"></div>
+      </div>
+    </div>
+    <a class="arrow__btn left-arrow">‹</a>
+    <a class="arrow__btn right-arrow">›</a>
   </div>
 
-  <h1>Worst Movies with Nicolas Cage</h1>
-  <div class="carousel" id="worstOfCage">
+
+  <div class="carousel-container" id="worstOfCage">
+    <h1>Worst Movies with Nicolas Cage</h1>
+    <div class="carousel-inner">
+      <div class="track" id="worstOfCage">
+      </div>
+    </div>
   </div>
 
-  <h1>2010</h1>
-  <div class="carousel" id="2010">
+
+  <div class="carousel-container" id="2010">
+    <h1>2010</h1>
+    <div class="carousel-inner">
+      <div class="track" id="2010">
+      </div>
+    </div>
   </div>
 
   <!-- END OF MAIN CONTAINER -->
@@ -69,3 +87,4 @@
   </footer>
 </body>
 </html>
+<script src="script.js"></script>

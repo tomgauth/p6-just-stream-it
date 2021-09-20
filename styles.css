@@ -1,4 +1,5 @@
 /* CSS VARIABLES */
+@import url("https://fonts.googleapis.com/icon?family=Material+Icons");
 :root {
   --primary: #141414;
   --light: #F3F3F3;
@@ -17,6 +18,105 @@ body {
 
 img {
   max-width: 100%;
+}
+
+.carousel-container {
+  display: grid;
+  width: 1280px;
+  margin: auto;
+  min-height: 200px;
+  position: relative;
+}
+
+.carousel-container .carousel-inner {
+  overflow: hidden;
+}
+
+.carousel-container .track {
+  display: inline-flex;
+  transition: transform 0.5s;
+}
+
+.carousel-container .item {
+  width: 200px;
+  height: 100%;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+}
+
+.arrow__btn {
+  display: inline-block;
+  position: absolute;
+  color: #fff;
+  text-decoration: none;
+  text-align: center;
+  font-size: 6em;
+  background: black;
+  width: 80px;
+  padding: 50px;
+  margin: auto;
+  z-index: 1;
+  cursor: pointer;
+}
+
+.left-arrow {
+  display: none;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  background: linear-gradient(-90deg, rgba(0, 0, 0, 0) 0%, black 100%);
+}
+
+.left-arrow.show {
+  display: block;
+}
+
+.right-arrow {
+  top: 0;
+  bottom: 0;
+  right: 0;
+  background: linear-gradient(90deg, rgba(0, 0, 0, 0) 0%, black 100%);
+}
+
+.right-arrow.hide {
+  display: none;
+}
+
+.nav button {
+  position: absolute;
+  color: #fff;
+  text-decoration: none;
+  font-size: 6em;
+  background: black;
+  width: 80px;
+  padding: 50px;
+  text-align: center;
+  z-index: 1;
+  cursor: pointer;
+}
+
+.nav .prev {
+  display: none;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  background: linear-gradient(-90deg, rgba(0, 0, 0, 0) 0%, black 100%);
+}
+
+.nav .prev.show {
+  display: block;
+}
+
+.nav .next {
+  top: 0;
+  bottom: 0;
+  right: 0;
+  background: linear-gradient(90deg, rgba(0, 0, 0, 0) 0%, black 100%);
+}
+
+.nav .next.hide {
+  display: none;
 }
 
 /* HEADER */
@@ -80,7 +180,7 @@ h1 {
   height: 100%;
   position: relative;
   display: grid;
-  grid-template-columns: repeat(7, auto);
+  grid-template-columns: repeat(4, auto);
   margin: 20px 0;
   padding: auto;
 }
@@ -116,6 +216,54 @@ h1 {
   bottom: 0;
   right: 0;
   background: linear-gradient(90deg, rgba(0, 0, 0, 0) 0%, black 100%);
+}
+
+/* Modal */
+.modal {
+  display: none;
+  /* Hidden by default */
+  position: fixed;
+  /* Stay in place */
+  z-index: 2;
+  /* Sit on top */
+  left: 0;
+  top: 0;
+  width: 100%;
+  /* Full width */
+  height: 100%;
+  /* Full height */
+  overflow: auto;
+  /* Enable scroll if needed */
+  background-color: black;
+  /* Fallback color */
+  background-color: rgba(0, 0, 0, 0.4);
+  /* Black w/ opacity */
+}
+
+/* Modal Content/Box */
+.modal-content {
+  background-color: #fefefe;
+  margin: 15% auto;
+  /* 15% from the top and centered */
+  padding: 20px;
+  border: 1px solid #888;
+  width: 80%;
+  /* Could be more or less, depending on screen size */
+}
+
+/* The Close Button */
+.close {
+  color: #aaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
 }
 
 .hero {
