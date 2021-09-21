@@ -1,10 +1,15 @@
+
+// the main endpoint of the api
 const root = "http://localhost:8000/api/v1/titles/"
 
 const body = document.body
 
+
+// Code for the Modal
+
 const modal = document.getElementById("itemModal")
 const closeBtn = document.getElementsByClassName("close")[0];
-//CAROUSEL JS
+
 
 closeBtn.onclick = function() {
 	console.log("close")
@@ -14,20 +19,11 @@ closeBtn.onclick = function() {
 	textArea.innerHTML = ""
 }
 
-const openItemModal = () => {
-	console.log("open")
-	modal.style.display = "block";
-}
+//CAROUSEL JS
 
 const slideNext = (evt) => {
-	// get the carousel inner
-	// get the other arrow
 	let tracks = document.getElementsByClassName('track')
 	let track = tracks[evt.currentTarget.id]
-	console.log(track)
-	console.log(track.index)
-	console.log(track.offsetWidth)
-	console.log(track.index * 200)
 	if (track.offsetWidth - (track.index * 200) < 1000) {} else {
 		track.index++
 			track.style.transform = `translateX(-${track.index * 200}px)`;
@@ -38,11 +34,6 @@ const slideNext = (evt) => {
 const slidePrev = (evt) => {
 	let tracks = document.getElementsByClassName('track')
 	let track = tracks[evt.currentTarget.id]
-	console.log(track)
-	//track = section
-	// evt.currentTarget.classList.remove('hide');
-	console.log(evt.currentTarget)
-	console.log(track.index)
 	if (track.index <= 0) {
 		console.log("triggered")
 		evt.currentTarget.classList.remove('show')
@@ -50,80 +41,63 @@ const slidePrev = (evt) => {
 		track.index--;
 		track.style.transform = `translateX(-${track.index * 200}px)`;
 	}
-
 }
 
 
 // API JS
 
-
-const openModal = (id) => {
-	// get modal by id
-	selectedModal = document.getElementById(`myModal${id}`);
-	console.log(selectedModal)
-	selectedModal.style.display = "block";
-}
-
-// When the user clicks on <span> (x), close the modal
-
-const closeModal = (id) => {
-	selectedModal = document.getElementById(`myModal${id}`);
-	console.log(selectedModal)
-	selectedModal.style.display = "none";
-
-}
-
 const createModal = async (itemId) => {
-	// get the data from the API from itemId
 	let target = root.concat(itemId)
+	// await for the response on the specific endpoint of the movie
 	response = await axios.get(target)
-	console.log(response.data)
 	modalContent = modal.querySelector('.modal-content')
 	textArea = modalContent.querySelector('.textArea')
+	// get the data from the response
+	// populate the modal with the relevant data
 	let item = response.data
-	console.log(textArea.textContent)
-	// parse the item data into the modal template
-	// open the modal
-	// create the modal <div id="myModal" class="modal">
-	// <div class="modal-content">
 	let image = document.createElement("img")
 	image.src = `${item.image_url}`
 	textArea.appendChild(image)
 
-
-
 	let title = document.createElement("h1")
 	title.textContent = `${item.title}`
 
-
 	let genres = document.createElement("p")
-	genres.textContent = `${item.genres}`
-
+	genres.textContent = `Genres: ${item.genres}`
 
 	let releaseDate = document.createElement("p")
 	releaseDate.textContent = `Release Date: ${item.date_published}`
 
 	let year = document.createElement("p")
 	year.textContent = `${item.year}`
+
 	let rated = document.createElement("p")
 	rated.textContent = `Rated: ${item.rated}`
+
 	let imdbScore = document.createElement("p")
 	imdbScore.textContent = `IMDB Score: ${item.imdb_score}`
+
 	let directors = document.createElement("p")
 	directors.textContent = `Director: ${item.directors}`
+
 	let actors = document.createElement("p")
 	actors.textContent = `Actors: ${item.actors}`
+
 	let duration = document.createElement("p")
-	duration.textContent = `Duration: ${item.duration}`
+	duration.textContent = `Duration: ${item.duration} mins`
+
 	let country = document.createElement("p")
 	country.textContent = `Country: ${item.countries}`
+
 	let boxOffice = document.createElement("p")
-	boxOffice.textContent = `Box Office: ${item.worldwide_gross_income}`
+	boxOffice.textContent = `Box Office: ${item.budget_currency} ${item.worldwide_gross_income}`
+
 	let summary = document.createElement("p")
-	boxOffice.textContent = `Summary: ${item.long_description}`
+	summary.textContent = `Summary: ${item.long_description}`
+
 	textArea.appendChild(title)
 	textArea.appendChild(genres)
-	textArea.appendChild(year)
+	textArea.appendChild(releaseDate)
 	textArea.appendChild(rated)
 	textArea.appendChild(imdbScore)
 	textArea.appendChild(directors)
@@ -133,13 +107,13 @@ const createModal = async (itemId) => {
 	textArea.appendChild(boxOffice)
 	textArea.appendChild(summary)
 
-
-	console.log(modal)
-	openItemModal()
+	// once all the data is parsed in the modal
+	// display the modal
+	modal.style.display = "block";
 }
 
 const createSection = (items, id) => {
-	console.log("Id + Items: "+id+" -- "+items)
+	// get the carousel with the matching id
 	let carouselContainer = document.getElementById(id)
 	console.log('carouselContainer: ' + carouselContainer)
 	let carouselInner = carouselContainer.getElementsByClassName('carousel-inner')[0]
@@ -153,7 +127,8 @@ const createSection = (items, id) => {
 	leftArrow.id = id
 	leftArrow.addEventListener("click", slidePrev)
 	carouselContainer.appendChild(leftArrow)
-	// for each item in row, create the item
+	// for each item we got from the api response, create the item
+	// and append it to the carousel
 	items.forEach(item => {
 		console.log(item)
 		let divItem = document.createElement("div")
@@ -169,7 +144,6 @@ const createSection = (items, id) => {
 		// append each item to the section
 		track.appendChild(divItem)
 	})
-	console.log(track)
 	// create and append the arrow right
 	let rightArrow = document.createElement("a")
 	rightArrow.classList.add("arrow__btn", "right-arrow")
@@ -180,19 +154,10 @@ const createSection = (items, id) => {
 	carouselContainer.appendChild(rightArrow)
 }
 
-const splitMovies = (allPages) => {
-	let movies = []
-	allPages.forEach(page =>
-		movies = movies.concat(page.data.results)
-	)
-	table = []
-	for (let i = 0; i < movies.length; i += 7)
-		table.push(movies.slice(i, i + 7));
-	return table
-}
 
+// async function that loads the data from the api in order to create a carousel
 async function loadCarousel(id, dict) {
-	// load page 1 and 2 only (need only 7 movies)
+	// gets page 1 and 2 only (need only 7 movies) from the api
 	dict.page = 1
 	console.log('calling page 1');
 	let pageOne = await axios.get(root, {
@@ -203,13 +168,52 @@ async function loadCarousel(id, dict) {
 	let pageTwo = await axios.get(root, {
 		params: dict
 	})
-	console.log(pageTwo)
-	let items = pageOne.data.results.concat(pageTwo.data.results.slice(0,1))
+	// items are all 5 movies of pageOne + 2 movies of pageTwo
+	let items = pageOne.data.results.concat(pageTwo.data.results.slice(0, 2))
 	console.log(items)
 	createSection(items, id)
 }
 
 
+// this function gets the #1 movie by imdb_score and show the relevant
+// information in the hero
+function getBestMovie() {
+	axios.get(root, {
+		params: {
+			sort_by: "-imdb_score"
+		}
+	}).then(function(response) {
+		// get the first movie
+		let movieId = response.data.results[0].id
+		console.log(movieId)
+		let target = root.concat(movieId)
+		// once the promise is resolved, we use the data in response
+		// to create the hero component
+		axios.get(target).then(function(response) {
+			movie = response.data
+			console.log(movie.image_url)
+			let title = document.createElement("h1")
+			title.textContent = `${movie.title}`
+			let heroContent = document.getElementsByClassName("heroContent")[0]
+			heroContent.appendChild(title)
+			const hero = document.getElementsByClassName("hero")[0]
+			hero.style.backgroundImage = "url(" + movie.image_url + ")"
+			let button = document.createElement("button")
+			button.textContent = "Play"
+			heroContent.appendChild(button)
+			let description = document.createElement("p")
+			description.textContent = `${movie.long_description}`
+			heroContent.appendChild(description)
+		})
+	}).catch(function(error) {
+		console.log(error)
+	})
+
+}
+
+// Calls all the functions to display the data from the api in the page
+
+getBestMovie()
 
 loadCarousel("bestMovies", {
 	sort_by: "-imdb_score",
@@ -229,67 +233,3 @@ loadCarousel("bestOfDrama", {
 	sort_by: "-imdb_score",
 	genre_contains: "Drama"
 })
-
-
-
-// pass the section as an argument instead of fetching it back each time
-const createItem = (movie) => {
-	const item = document.createElement("div")
-	item.classList.add("item")
-	const a = document.createElement("a")
-	a.href = "#"
-	const h1 = document.createElement("h1")
-	h1.classList.add("heading")
-	h1.textContent = `${movie.title}`
-	const img = document.createElement("img")
-	img.src = `${movie.image_url}`
-	img.alt.textContent = `${movie.title}`
-	a.appendChild(img)
-	a.appendChild(h1)
-	item.appendChild(a)
-	return item
-};
-
-
-function getBestMovie() {
-	axios.get(root, {
-		params: {
-			sort_by: "-imdb_score"
-		}
-	}).then(function(response) {
-		let movieId = response.data.results[0].id
-		console.log(movieId)
-		let target = root.concat(movieId)
-		axios.get(target).then(function(response) {
-			movie = response.data
-			console.log(movie.image_url)
-			let title = document.createElement("h1")
-			title.textContent = `${movie.title}`
-			let heroContent = document.getElementsByClassName("heroContent")[0]
-			heroContent.appendChild(title)
-			const hero = document.getElementsByClassName("hero")[0]
-			hero.style.backgroundImage = "url(" + movie.image_url + ")"
-			let description = document.createElement("p")
-			description.textContent = `${movie.long_description}`
-			heroContent.appendChild(description)
-			let button = document.createElement("button")
-			button.textContent = "Play"
-			heroContent.appendChild(button)
-		})
-	}).catch(function(error) {
-		console.log(error)
-	})
-
-}
-
-getBestMovie()
-
-const app = document.getElementById("root")
-
-
-// getPage(root, {
-// 	sort_by: "-imdb_score"
-// }, "best_movies")
-// getBestMovie(root, {sort_by : "-imdb_score"})
-
-// getPage(root, {sort_by : "-imdb_score", actor : "Nicolas Cage"}, "worst_of_cage")
