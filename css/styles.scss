@@ -4,8 +4,6 @@
   --light: #F3F3F3;
   --dark:   #686868;
 }
-$itemGrow: 1.2;
-$duration: 250ms;
 
 html {
   scroll-behavior: smooth;
@@ -19,21 +17,22 @@ body {
 
 
 img {
-  max-width: 100%;
+  max-width: 80%;
 }
 
-@import url("https://fonts.googleapis.com/icon?family=Material+Icons");
 
 .carousel-container {
   display: grid;
-  width: 1280px;
+  width: 90%;
   margin: auto;
+  height: 350px;
   min-height: 200px;
   position: relative;
 }
 
 .carousel-container .carousel-inner {
   overflow: hidden;
+  height: 250px;
 }
 .carousel-container .track {
   display: inline-flex;
@@ -42,7 +41,7 @@ img {
 
 .carousel-container .item {
   width: 200px;
-  height: 100%;
+  height: 200px;
   padding: 10px;
   display: flex;
   flex-direction: column;
@@ -50,15 +49,15 @@ img {
 
 
 .arrow__btn {
-  display: inline-block;
-  position: absolute;
+  // display: inline-block;
+  // position: absolute;
   color: #fff;
   text-decoration: none;
   text-align: center;
   font-size: 6em;
   background: rgb(0, 0, 0);
   width: 80px;
-  padding: 50px;
+  // padding: 50px;
   margin: auto;
   z-index: 1;
   cursor: pointer;
@@ -66,8 +65,8 @@ img {
 
 .left-arrow {
   display: block;
-  top: 0;
-  bottom: 0;
+  position: absolute;
+  top: 46%;
   left: 0;
   background: linear-gradient(
     -90deg,
@@ -81,8 +80,8 @@ img {
 }
 
 .right-arrow {
-  top: 0;
-  bottom: 0;
+  position: absolute;
+  top: 46%;
   right: 0;
   background: linear-gradient(
     90deg,
@@ -99,18 +98,21 @@ img {
 
 /* HEADER */
 header {
-  padding: 20px 20px 0 20px;
+  padding: 20px;
   position: fixed;
   top: 0;
   display: grid;
   grid-gap:5px;
-  grid-template-columns: 1fr 4fr 1fr;
   grid-template-areas:
    "nt mn mn sb . . . ";
   background-color: var(--primary);
   width: 100%;
   margin-bottom: 0px;
   z-index: 5;
+  align-content: space-around;
+  justify-content: space-between;
+  align-items: center;
+  justify-items: center;
 }
 
 .Logo {
@@ -130,91 +132,61 @@ header {
   padding: 0;
 }
 
-
-.main-nav {
-  grid-area: mn;
-  padding: 0 30px 0 20px;
+.home {
+  width: 50px;
 }
 
-.main-nav a {
-  color: var(--light);
+.home a {
+  background-color: var(--primary);
   text-decoration: none;
-  margin: 5px;
+  color: white;
+  padding: 16px;
+  font-size: 16px;
+  border: none;
 }
 
-.main-nav a:hover {
-  color: var(--dark);
+.home a:hover {background-color: var(--primary);}
+
+.dropbtn {
+  background-color: var(--primary);
+  color: white;
+  padding: 16px;
+  font-size: 16px;
+  border: none;
 }
 
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: var(--light);
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+}
+
+.dropdown-content a {
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+}
+
+.dropdown-content a:hover {background-color: var(--light);}
+
+.dropdown:hover .dropdown-content {display: block;}
+
+.dropdown:hover .dropbtn {background-color: var(--primary);}
 
 
 
 h1 {
   color: red;
   text-align: left;
-}
-
-.carousel {
-  display: grid;
-  grid-template-columns: repeat(10000, 100%);
-  overflow: hidden;
-  scroll-behavior: smooth;
-
-  section {
-    width: 100%;
-    height: 100%;
-    position: relative;
-    display: grid;
-    grid-template-columns: repeat(4, auto);
-    margin: 20px 0;
-    padding: auto;
-
-    .item {
-      position: relative;
-      padding: 0 2px;
-      transition: $duration all;
-
-      &:hover {
-        margin: 0 40px;
-        transform: scale(1.2);
-      }
-    }
-
-    .arrow__btn {
-      display: grid;
-      position: absolute;
-      color: #fff;
-      text-decoration: none;
-      font-size: 6em;
-      background: rgb(0, 0, 0);
-      width: 80px;
-      padding: 50px;
-      text-align: center;
-      z-index: 1;
-    }
-
-    .left-arrow {
-      top: 0;
-      bottom: 0;
-      left: 0;
-      background: linear-gradient(
-        -90deg,
-        rgba(0, 0, 0, 0) 0%,
-        rgba(0, 0, 0, 1) 100%
-      );
-    }
-
-    .right-arrow {
-      top: 0;
-      bottom: 0;
-      right: 0;
-      background: linear-gradient(
-        90deg,
-        rgba(0, 0, 0, 0) 0%,
-        rgba(0, 0, 0, 1) 100%
-      );
-    }
-  }
 }
 
 
@@ -239,7 +211,7 @@ h1 {
   margin: 15% auto; /* 15% from the top and centered */
   padding: 20px;
   border: 1px solid #888;
-  width: 80%; /* Could be more or less, depending on screen size */
+  width: 50%; /* Could be more or less, depending on screen size */
 }
 
 /* The Close Button */
@@ -259,27 +231,23 @@ h1 {
 
 
 .hero {
-    background-image: url( "https://m.media-amazon.com/images/M/MV5BNDEyYTA5OWEtYjNiYS00MGZlLThjYzEtMTc1Zjk2NDRmZmYxXkEyXkFqcGdeQXVyNzIwNTQyMw@@._V1_UY268_CR1,0,182,268_AL_.jpg");
-    width: 80%;
+    padding-top: 50px;
+    width: 90%;
     background-size: cover;
     min-height: 400px;
+    margin: auto;
 }
 
-.hero .content {
+.hero .heroContent {
     position: relative;
+    color: var(--light);
     z-index: 0;
-    width: 500px;
+    width: 40%;
     left: 10vw;
     top: 10vw;
 }
 
-
-.hero .content h1 {
-      width: 100%;
-
-    }
-
-.hero .content button {
+.hero .heroContent button {
   background: red;
   display: flex;
   height: 44px;
@@ -293,15 +261,6 @@ h1 {
   font-size: 14px;
   font-weight: 600;
 }
-
-
-
-.hero button-wrapper {
-      display: flex;
-      width: 400px;
-      margin-top: 30px;
-    }
-
 
 
 /* FOOTER */

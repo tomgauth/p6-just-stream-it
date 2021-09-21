@@ -18,68 +18,72 @@
     <div class="Logo">
       <a id="logo" href="#home"><img src="just_stream_it_logo.png" alt="Logo Image"></a>
     </div>
-    <nav class="main-nav">
+    <div class="home">
+      <a href="#">Home</a>
+    </div>
+    <div class="dropdown">
+  <button class="dropbtn">Categories</button>
+  <div class="dropdown-content">
       <a href="#bestMovies">Best Movies</a>
       <a href="#worstOfCage">Worst of Nicolas Cage</a>
-      <a href="#originals">Originals</a>
-      <a href="#">Recently Added</a>
+      <a href="#bestOf2010">Best from 2010</a>
+  </div>
+</div>
 
-    </nav>
   </header>
   <!-- END OF HEADER -->
 
   <!-- MAIN CONTAINER -->
   <div class="hero">
-    <div class="content">
-      <h1>Test Title in the hero</h1>
-      <p>Description of the movie</p>
-      <button>Play</button>
-      <!-- MODAL TEST -->
+    <div class="heroContent">
     </div>
   </div>
 
+
+  <div class="modal" id="itemModal" style="display: none;">
+    <div class="modal-content">
+      <span class="close">x</span>
+        <div class="textArea">
+      </div>
+    </div>
+  </div>
 
   <div class="carousel-container" id="bestMovies">
     <h1>Best Movies</h1>
-    <div class="carousel-inner">
-      <div class="track" id="bestMovies">
-        <div class="item" onclick="openModal(11207902)"><img src="https://m.media-amazon.com/images/M/MV5BNjFjNDQyYzYtZjI2NC00NmMwLTg1NjgtNTMxMWJjYTYxZjQ3XkEyXkFqcGdeQXVyMTA5MzgzNDUz._V1_UY268_CR1,0,182,268_AL_.jpg"></div><div class="item" onclick="openModal(11880904)"><img src="https://m.media-amazon.com/images/M/MV5BMTZjZjM3NTQtOTFmOS00ZGI3LWI2MGQtMGE3MWNlZTE2OWM3XkEyXkFqcGdeQXVyMTExNzA5NzE4._V1_UY268_CR9,0,182,268_AL_.jpg"></div><div class="item" onclick="openModal(11976170)"><img src="https://m.media-amazon.com/images/M/MV5BYzM5Mzg1MDAtN2U1YS00M2UyLTliMTItOGI5YjA5ZjdjNGFkXkEyXkFqcGdeQXVyMTE0NzkzODUy._V1_UY268_CR9,0,182,268_AL_.jpg"></div><div class="item" onclick="openModal(11164090)"><img src="https://m.media-amazon.com/images/M/MV5BNDg2ZTRkY2MtNGRhMC00MjAwLTg0MGUtN2RmZTA2MGQ3MWYwXkEyXkFqcGdeQXVyMjgxNDIxNjE@._V1_UX182_CR0,0,182,268_AL_.jpg"></div><div class="item" onclick="openModal(11280912)"><img src="https://m.media-amazon.com/images/M/MV5BMmY2YzlkMzUtYzMxYS00MmViLTkyZjctMzZlNDEwNWMwNzY2XkEyXkFqcGdeQXVyMjkxNzQ1NDI@._V1_UY268_CR0,0,182,268_AL_.jpg"></div><div class="item" onclick="openModal(11880890)"><img src="https://m.media-amazon.com/images/M/MV5BZGQ3ZDVkNDEtMGM3Yy00ZWJmLWE0YWMtZTM3MTcxZmNhOWFlXkEyXkFqcGdeQXVyMjkxNzQ1NDI@._V1_UY268_CR0,0,182,268_AL_.jpg"></div><div class="item" onclick="openModal(11617492)"><img src="https://m.media-amazon.com/images/M/MV5BNjNiYTIwYmUtZDlmYy00MWMxLWI0OTAtMmRkODdlMTM1ZTVmXkEyXkFqcGdeQXVyNDcwNDE0Nzk@._V1_UX182_CR0,0,182,268_AL_.jpg"></div>
-      </div>
-    </div>
-    <a class="arrow__btn left-arrow">‹</a>
-    <a class="arrow__btn right-arrow">›</a>
-  </div>
-
-
-  <div class="carousel-container" id="worstOfCage">
-    <h1>Worst Movies with Nicolas Cage</h1>
-    <div class="carousel-inner">
-      <div class="track" id="worstOfCage">
+      <div class="carousel-inner">
+        <div class="track" id="bestMovies">
       </div>
     </div>
   </div>
 
 
-  <div class="carousel-container" id="bestOf2010">
-    <h1>Best Of 2010</h1>
+  <div class="carousel-container" id="bestBiographies">
+    <h1>Best Biography movies</h1>
     <div class="carousel-inner">
-      <div class="track" id="bestOf2010">
+      <div class="track" id="bestBiographies">
+      </div>
+    </div>
+  </div>
+
+
+  <div class="carousel-container" id="bestOfComedy">
+    <h1>Best Comedies</h1>
+    <div class="carousel-inner">
+      <div class="track" id="bestOfComedy">
+      </div>
+    </div>
+  </div>
+
+
+  <div class="carousel-container" id="bestOfDrama">
+    <h1>Best Dramas</h1>
+    <div class="carousel-inner">
+      <div class="track" id="bestOfDrama">
       </div>
     </div>
   </div>
 
   <!-- END OF MAIN CONTAINER -->
-
-  <!-- LINKS -->
-  <section class="link">
-    <div class="logos">
-      <a href="#"><i class="fab fa-facebook-square fa-2x logo"></i></a>
-      <a href="#"><i class="fab fa-instagram fa-2x logo"></i></a>
-      <a href="#"><i class="fab fa-twitter fa-2x logo"></i></a>
-      <a href="#"><i class="fab fa-youtube fa-2x logo"></i></a>
-    </div>
-  </section>
-  <!-- END OF LINKS -->
 
   <!-- FOOTER -->
   <footer>
