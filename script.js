@@ -200,6 +200,7 @@ function getBestMovie() {
 			hero.style.backgroundImage = "url(" + movie.image_url + ")"
 			let button = document.createElement("button")
 			button.textContent = "Play"
+			button.setAttribute("onclick", "createModal(" + movieId.toString() + ")")
 			heroContent.appendChild(button)
 			let description = document.createElement("p")
 			description.textContent = `${movie.long_description}`
