@@ -20,6 +20,34 @@ https://github.com/OpenClassrooms-Student-Center/OCMovies-API-EN-FR
 
 ## See the website
 
+First, setup and run the server:
+
+```
+# go to the API folder
+
+cd api
+
+# Create a virtual environment
+
+python3 -m venv env
+
+# Activate the virtual environment
+
+source env/bin/activate
+
+# Install the requirements
+
+pip install -r requirements.txt
+
+# Install the database
+
+python manage.py create_db
+
+# Run the server
+
+python3 manage.py runserver
+```
+
 Simply open the main.html page.
 
 click on a movie to see more about it.
