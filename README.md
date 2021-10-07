@@ -9,6 +9,11 @@ The project was designed for the specific needs of the project 6 in Openclassroo
 
 Download the repository on your computer.
 
+Run npm install to install depedencies
+```
+npm install
+```
+
 Install the API OCMovies by following the steps specified in this repo:
 https://github.com/OpenClassrooms-Student-Center/OCMovies-API-EN-FR
 
